@@ -1008,8 +1008,8 @@ public class UniverseController extends AuthenticatedController {
 	if (primaryCluster.userIntent.providerType.equals(CloudType.onprem)) {
 		Set<NodeDetails> universeDetailList = universeDetails.nodeDetailsSet;
 		for (NodeDetails eachNode : universeDetailList) {
-			if (NodeInstance.find.query().where().eq("nodeName", eachNode.nodeName).findOne() != null) {
-				NodeInstance nodeInstanceObject = NodeInstance.find.query().where().eq("nodeName", eachNode.nodeName).findOne();
+			NodeInstance nodeInstanceObject = NodeInstance.find.query().where().eq("nodeName", eachNode.nodeName).findOne();
+			if (nodeInstanceObject != null) {
 				nodeInstanceObject.inUse = false;
 				nodeInstanceObject.save();
 			} else {
