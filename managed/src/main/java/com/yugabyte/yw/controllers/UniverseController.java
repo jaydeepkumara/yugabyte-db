@@ -63,6 +63,7 @@ import com.yugabyte.yw.models.CertificateInfo;
 import com.yugabyte.yw.models.Customer;
 import com.yugabyte.yw.models.CustomerTask;
 import com.yugabyte.yw.models.HealthCheck;
+import com.yugabyte.yw.models.NodeInstance;
 import com.yugabyte.yw.models.Provider;
 import com.yugabyte.yw.models.TaskInfo;
 import com.yugabyte.yw.models.Universe;
@@ -1004,7 +1005,18 @@ public class UniverseController extends AuthenticatedController {
     if (primaryCluster.userIntent.providerType.equals(CloudType.kubernetes)) {
       taskType = TaskType.DestroyKubernetesUniverse;
     }
-
+	if (primaryCluster.userIntent.providerType.equals(CloudType.onprem)) {
+		Set<NodeDetails> universeList = universeDetails.nodeDetailsSet;
+		for (NodeDetails eachNode : universeList) {
+			if (NodeInstance.find.query().where().eq("nodeName", eachNode.nodeName).findOne() != null) {
+				NodeInstance nodeInstanceObject = NodeInstance.find.query().where().eq("nodeName", eachNode.nodeName).findOne();
+				nodeInstanceObject.inUse = false;
+				nodeInstanceObject.save();
+			} else {
+				continue;
+			}
+		}
+	}
     // Update all current tasks for this universe to be marked as done if it is a force delete.
     if (isForceDelete) {
       markAllUniverseTasksAsCompleted(universe.universeUUID);
