@@ -1006,8 +1006,8 @@ public class UniverseController extends AuthenticatedController {
       taskType = TaskType.DestroyKubernetesUniverse;
     }
 	if (primaryCluster.userIntent.providerType.equals(CloudType.onprem)) {
-		Set<NodeDetails> universeList = universeDetails.nodeDetailsSet;
-		for (NodeDetails eachNode : universeList) {
+		Set<NodeDetails> universeDetailList = universeDetails.nodeDetailsSet;
+		for (NodeDetails eachNode : universeDetailList) {
 			if (NodeInstance.find.query().where().eq("nodeName", eachNode.nodeName).findOne() != null) {
 				NodeInstance nodeInstanceObject = NodeInstance.find.query().where().eq("nodeName", eachNode.nodeName).findOne();
 				nodeInstanceObject.inUse = false;
