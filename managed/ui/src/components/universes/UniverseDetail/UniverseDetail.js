@@ -191,6 +191,7 @@ class UniverseDetail extends Component {
       showGFlagsModal,
       showManageKeyModal,
       showDeleteUniverseModal,
+      showPauseUniverseModal,
       closeModal,
       customer,
       customer: { currentCustomer },
@@ -449,25 +450,25 @@ class UniverseDetail extends Component {
                   {this.showUpgradeMarker() ? (
                     <span className="badge badge-pill badge-red pull-right">{updateAvailable}</span>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </YBMenuItem>
                 {!isReadOnlyUniverse &&
                   isNotHidden(
                     currentCustomer.data.features,
                     'universes.details.overview.editUniverse'
                   ) && (
-                  <YBMenuItem
-                    eventKey="2"
-                    to={`/universes/${uuid}/edit/primary`}
-                    availability={getFeatureState(
-                      currentCustomer.data.features,
-                      'universes.details.overview.editUniverse'
-                    )}
-                  >
-                    <YBLabelWithIcon icon="fa fa-pencil">Edit Universe</YBLabelWithIcon>
-                  </YBMenuItem>
-                )}
+                    <YBMenuItem
+                      eventKey="2"
+                      to={`/universes/${uuid}/edit/primary`}
+                      availability={getFeatureState(
+                        currentCustomer.data.features,
+                        'universes.details.overview.editUniverse'
+                      )}
+                    >
+                      <YBLabelWithIcon icon="fa fa-pencil">Edit Universe</YBLabelWithIcon>
+                    </YBMenuItem>
+                  )}
                 <YBMenuItem
                   eventKey="4"
                   onClick={showGFlagsModal}
@@ -513,8 +514,22 @@ class UniverseDetail extends Component {
                   }
                 />
                 <div className="divider"></div>
+
+                {/* Pause Universe */}
                 <YBMenuItem
                   eventKey="5"
+                  onClick={showPauseUniverseModal}
+                >
+                  <YBLabelWithIcon
+                    icon="fa fa-pause-circle-o fa-fw"
+                  >
+                    Pause Universe
+                  </YBLabelWithIcon>
+                </YBMenuItem>
+
+                {/* Delete Universe */}
+                <YBMenuItem
+                  eventKey="6"
                   onClick={showDeleteUniverseModal}
                   availability={getFeatureState(
                     currentCustomer.data.features,
