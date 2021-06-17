@@ -46,10 +46,7 @@ public class CustomerConfigController extends AuthenticatedController {
 
   public Result delete(UUID customerUUID, UUID configUUID) {
     CustomerConfig customerConfig = CustomerConfig.getOrBadRequest(customerUUID, configUUID);
-    if (!customerConfig.delete()) {
-      throw new YWServiceException(
-          INTERNAL_SERVER_ERROR, "Customer Configuration could not be deleted.");
-    }
+    customerConfig.deleteOrThrow();
     alertManager.resolveAlerts(customerUUID, configUUID, "%");
     auditService().createAuditEntry(ctx(), request());
     return YWResults.YWSuccess.withMessage("configUUID deleted");
