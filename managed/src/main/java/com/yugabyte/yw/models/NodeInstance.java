@@ -34,11 +34,11 @@ public class NodeInstance extends Model {
   public UUID nodeUuid;
 
   @Column
-  @ApiModelProperty(value = "Node instance type code", example="c5large")
+  @ApiModelProperty(value = "Node instance type code", example = "c5large")
   public String instanceTypeCode;
 
   @Column(nullable = false)
-  @ApiModelProperty(value = "Node instance node name", example="India node")
+  @ApiModelProperty(value = "Node instance node name", example = "India node")
   private String nodeName;
 
   public String getNodeName() {
@@ -54,7 +54,7 @@ public class NodeInstance extends Model {
   }
 
   @Column(nullable = false)
-  @ApiModelProperty(value = "Node instance instance name", example="Mumbai instance")
+  @ApiModelProperty(value = "Node instance instance name", example = "Mumbai instance")
   public String instanceName;
 
   @Column(nullable = false)
@@ -91,7 +91,7 @@ public class NodeInstance extends Model {
     this.save();
   }
 
-  @ApiModelProperty(value = "Node details", example="{\"ip\":\"1.1.1.1\",\"sshUser\":\"centos\"}")
+  @ApiModelProperty(value = "Node details", example = "{\"ip\":\"1.1.1.1\",\"sshUser\":\"centos\"}")
   public String getDetailsJson() {
     return nodeDetailsJson;
   }
