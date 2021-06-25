@@ -13,7 +13,6 @@ import com.yugabyte.yw.forms.NodeActionFormData;
 import com.yugabyte.yw.forms.NodeInstanceFormData;
 import com.yugabyte.yw.forms.NodeInstanceFormData.NodeInstanceData;
 import com.yugabyte.yw.forms.YWResults;
-import com.yugabyte.yw.forms.TaskSuccessData;
 import com.yugabyte.yw.models.*;
 import com.yugabyte.yw.models.helpers.AllowedActionsHelper;
 import io.swagger.annotations.*;
@@ -158,7 +157,7 @@ public class NodeInstanceController extends AuthenticatedController {
     }
   }
 
-  @ApiOperation(value = "Update node actions", response = TaskSuccessData.class)
+  @ApiOperation(value = "Update node actions", response = YWResults.YWTask.class)
   @ApiImplicitParams({
     @ApiImplicitParam(
         name = "Node action",

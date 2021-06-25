@@ -28,6 +28,8 @@
   }, {
     "name" : "RuntimeConfig"
   }, {
+    "name" : "Tables"
+  }, {
     "name" : "Node Instances"
   }, {
     "name" : "Provider"
@@ -212,7 +214,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/ReleaseMetadata"
+              "$ref" : "#/definitions/Release Data"
             }
           }
         },
@@ -444,6 +446,70 @@
         } ]
       }
     },
+    "/api/v1/customers/{cUUID}/universes/{uniUUID}/setup_universe_2dc" : {
+      "put" : {
+        "tags" : [ "Universe" ],
+        "summary" : "resetVersion",
+        "description" : "",
+        "operationId" : "resetVersion",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "uniUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/YWSuccess"
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/customers/{cUUID}/universes/{uniUUID}/set_key" : {
+      "post" : {
+        "tags" : [ "Universe" ],
+        "summary" : "setUniverseKey",
+        "description" : "",
+        "operationId" : "setUniverseKey",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "uniUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/UniverseResp"
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      }
+    },
     "/api/v1/customers/{cUUID}/universes/{uniUUID}" : {
       "get" : {
         "tags" : [ "Universe" ],
@@ -498,7 +564,7 @@
           "description" : "univ definition",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/UniverseDefinitionTaskParams"
+            "$ref" : "#/definitions/Universe task"
           }
         } ],
         "responses" : {
@@ -634,7 +700,7 @@
           "description" : "univ definition",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/UniverseDefinitionTaskParams"
+            "$ref" : "#/definitions/Universe task"
           }
         } ],
         "responses" : {
@@ -682,70 +748,6 @@
         } ]
       }
     },
-    "/api/v1/customers/{cUUID}/universes/{uniUUID}/setup_universe_2dc" : {
-      "put" : {
-        "tags" : [ "Universe" ],
-        "summary" : "resetVersion",
-        "description" : "",
-        "operationId" : "resetVersion",
-        "parameters" : [ {
-          "name" : "cUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        }, {
-          "name" : "uniUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/YWSuccess"
-            }
-          }
-        },
-        "security" : [ {
-          "apiKeyAuth" : [ ]
-        } ]
-      }
-    },
-    "/api/v1/customers/{cUUID}/universes/{uniUUID}/set_key" : {
-      "post" : {
-        "tags" : [ "Universe" ],
-        "summary" : "setUniverseKey",
-        "description" : "",
-        "operationId" : "setUniverseKey",
-        "parameters" : [ {
-          "name" : "cUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        }, {
-          "name" : "uniUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/UniverseResp"
-            }
-          }
-        },
-        "security" : [ {
-          "apiKeyAuth" : [ ]
-        } ]
-      }
-    },
     "/api/v1/customers/{cUUID}/universe_configure" : {
       "post" : {
         "tags" : [ "Universe" ],
@@ -763,7 +765,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/UniverseDefinitionTaskParams"
+              "$ref" : "#/definitions/Universe task"
             }
           }
         },
@@ -796,7 +798,7 @@
           "description" : "upgrade params",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/UpgradeParams"
+            "$ref" : "#/definitions/Universe task"
           }
         } ],
         "responses" : {
@@ -958,7 +960,7 @@
           "description" : "univ definition",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/DiskIncreaseFormData"
+            "$ref" : "#/definitions/Universe task"
           }
         } ],
         "responses" : {
@@ -1468,7 +1470,7 @@
           "description" : "univ definition",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/UniverseDefinitionTaskParams"
+            "$ref" : "#/definitions/Universe task"
           }
         } ],
         "responses" : {
@@ -1804,6 +1806,384 @@
         } ]
       }
     },
+    "/api/v1/customers/{cUUID}/universes/{uniUUID}/tables/{tableUUID}" : {
+      "get" : {
+        "tags" : [ "Tables" ],
+        "summary" : "Describe table",
+        "description" : "",
+        "operationId" : "describe",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "uniUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "tableUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "object"
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Tables" ],
+        "summary" : "Alter table",
+        "description" : "",
+        "operationId" : "alter",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "uniUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "tableUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "object"
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Tables" ],
+        "summary" : "Drop table",
+        "description" : "",
+        "operationId" : "drop",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "uniUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "tableUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/YWTask"
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/customers/{cUUID}/universes/{uniUUID}/tables" : {
+      "get" : {
+        "tags" : [ "Tables" ],
+        "summary" : "Universe list",
+        "description" : "",
+        "operationId" : "universeList",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "uniUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object"
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Tables" ],
+        "summary" : "Create Table",
+        "description" : "",
+        "operationId" : "create",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "uniUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "in" : "body",
+          "name" : "Table",
+          "description" : "Table data to be created",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Universe task"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/YWTask"
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/customers/{cUUID}/universes/{uniUUID}/tables/{tableUUID}/bulk_import" : {
+      "put" : {
+        "tags" : [ "Tables" ],
+        "summary" : "Bulk import table",
+        "description" : "",
+        "operationId" : "bulkImport",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "uniUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "tableUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "in" : "body",
+          "name" : "Bulk import",
+          "description" : "Bulk data to be Imported",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Bulk import params"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/YWTask"
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/customers/{cUUID}/universes/{uniUUID}/tables/{tableUUID}/create_backup" : {
+      "put" : {
+        "tags" : [ "Tables" ],
+        "summary" : "Create Multiple table backup",
+        "description" : "",
+        "operationId" : "createBackup",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "uniUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "tableUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "in" : "body",
+          "name" : "Backup",
+          "description" : "Backup data to be created",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Backup Table Params"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/YWTask"
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/customers/{cUUID}/universes/{uniUUID}/multi_table_backup" : {
+      "put" : {
+        "tags" : [ "Tables" ],
+        "summary" : "Create Multiple table backup",
+        "description" : "",
+        "operationId" : "createMultiTableBackup",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "uniUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "in" : "body",
+          "name" : "Table",
+          "description" : "Table data to be created",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Multi table backup request params"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/YWTask"
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/metadata/column_types" : {
+      "get" : {
+        "tags" : [ "Tables" ],
+        "summary" : "Get columns type",
+        "description" : "",
+        "operationId" : "getColumnTypes",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "object"
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/customers/{cUUID}/features" : {
+      "put" : {
+        "operationId" : "upsertFeatures",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/customers/{cUUID}/metrics" : {
+      "post" : {
+        "operationId" : "metrics",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
     "/api/v1/customers/{cUUID}" : {
       "get" : {
         "summary" : "getCustomer",
@@ -1872,40 +2252,6 @@
         }
       }
     },
-    "/api/v1/customers/{cUUID}/features" : {
-      "put" : {
-        "operationId" : "upsertFeatures",
-        "parameters" : [ {
-          "name" : "cUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        } ],
-        "responses" : {
-          "default" : {
-            "description" : "successful operation"
-          }
-        }
-      }
-    },
-    "/api/v1/customers/{cUUID}/metrics" : {
-      "post" : {
-        "operationId" : "metrics",
-        "parameters" : [ {
-          "name" : "cUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        } ],
-        "responses" : {
-          "default" : {
-            "description" : "successful operation"
-          }
-        }
-      }
-    },
     "/api/v1/customers/{cUUID}/host_info" : {
       "get" : {
         "operationId" : "getHostInfo",
@@ -1926,17 +2272,6 @@
     "/api/v1/register" : {
       "post" : {
         "operationId" : "register",
-        "parameters" : [ ],
-        "responses" : {
-          "default" : {
-            "description" : "successful operation"
-          }
-        }
-      }
-    },
-    "/api/v1/logout" : {
-      "get" : {
-        "operationId" : "logout",
         "parameters" : [ ],
         "responses" : {
           "default" : {
@@ -1967,26 +2302,13 @@
         }
       }
     },
-    "/api/v1/login" : {
-      "post" : {
-        "summary" : "login",
-        "description" : "",
-        "operationId" : "login",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "loginFormData",
-          "description" : "login form data",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/CustomerLoginFormData"
-          }
-        } ],
+    "/api/v1/logout" : {
+      "get" : {
+        "operationId" : "logout",
+        "parameters" : [ ],
         "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "object"
-            }
+          "default" : {
+            "description" : "successful operation"
           }
         }
       }
@@ -2046,6 +2368,58 @@
         }
       }
     },
+    "/api/v1/logs/{maxLines}" : {
+      "get" : {
+        "operationId" : "getLogs",
+        "parameters" : [ {
+          "name" : "maxLines",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/ui_theme" : {
+      "get" : {
+        "operationId" : "getUITheme",
+        "parameters" : [ ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/login" : {
+      "post" : {
+        "summary" : "login",
+        "description" : "",
+        "operationId" : "login",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "loginFormData",
+          "description" : "login form data",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/CustomerLoginFormData"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
     "/api/v1/customers/{cUUID}/api_token" : {
       "put" : {
         "summary" : "apiToken",
@@ -2082,34 +2456,6 @@
     "/api/v1/app_version" : {
       "get" : {
         "operationId" : "appVersion",
-        "parameters" : [ ],
-        "responses" : {
-          "default" : {
-            "description" : "successful operation"
-          }
-        }
-      }
-    },
-    "/api/v1/logs/{maxLines}" : {
-      "get" : {
-        "operationId" : "getLogs",
-        "parameters" : [ {
-          "name" : "maxLines",
-          "in" : "path",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int32"
-        } ],
-        "responses" : {
-          "default" : {
-            "description" : "successful operation"
-          }
-        }
-      }
-    },
-    "/api/v1/ui_theme" : {
-      "get" : {
-        "operationId" : "getUITheme",
         "parameters" : [ ],
         "responses" : {
           "default" : {
@@ -2333,7 +2679,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/TaskSuccessData"
+              "$ref" : "#/definitions/YWTask"
             }
           }
         },
@@ -2807,27 +3153,32 @@
         }
       }
     },
-    "ReleaseMetadata" : {
+    "Release Data" : {
       "type" : "object",
-      "required" : [ "filePath", "imageTag", "notes", "state" ],
       "properties" : {
         "state" : {
           "type" : "string",
+          "example" : "ACTIVE",
+          "description" : "Release state",
           "enum" : [ "ACTIVE", "DISABLED", "DELETED" ]
         },
         "notes" : {
           "type" : "array",
+          "description" : "Release notes",
           "items" : {
             "type" : "string"
           }
         },
         "filePath" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "Release File path"
         },
         "imageTag" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "Release image tag"
         }
-      }
+      },
+      "description" : "Release Data"
     },
     "EmptyResponseData" : {
       "type" : "object",
@@ -2874,47 +3225,71 @@
         }
       }
     },
-    "CloudSpecificInfo" : {
+    "YWSuccess" : {
       "type" : "object",
-      "required" : [ "assignPublicIP", "az", "cloud", "instance_type", "mount_roots", "private_dns", "private_ip", "public_dns", "public_ip", "region", "subnet_id", "useTimeSync" ],
+      "required" : [ "message", "success" ],
       "properties" : {
-        "private_ip" : {
-          "type" : "string"
-        },
-        "public_ip" : {
-          "type" : "string"
-        },
-        "public_dns" : {
-          "type" : "string"
-        },
-        "private_dns" : {
-          "type" : "string"
-        },
-        "instance_type" : {
-          "type" : "string"
-        },
-        "subnet_id" : {
-          "type" : "string"
-        },
-        "az" : {
-          "type" : "string"
-        },
-        "region" : {
-          "type" : "string"
-        },
-        "cloud" : {
-          "type" : "string"
-        },
-        "assignPublicIP" : {
+        "success" : {
           "type" : "boolean"
         },
-        "useTimeSync" : {
-          "type" : "boolean"
-        },
-        "mount_roots" : {
+        "message" : {
           "type" : "string"
         }
       }
+    },
+    "Cloud specific info" : {
+      "type" : "object",
+      "properties" : {
+        "private_ip" : {
+          "type" : "string",
+          "description" : "Private IP"
+        },
+        "public_ip" : {
+          "type" : "string",
+          "description" : "Public IP"
+        },
+        "public_dns" : {
+          "type" : "string",
+          "description" : "Public DNS"
+        },
+        "private_dns" : {
+          "type" : "string",
+          "description" : "Private DNS"
+        },
+        "instance_type" : {
+          "type" : "string",
+          "description" : "Instance type"
+        },
+        "subnet_id" : {
+          "type" : "string",
+          "description" : "Subnet IP"
+        },
+        "az" : {
+          "type" : "string",
+          "description" : "AZ"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "Region"
+        },
+        "cloud" : {
+          "type" : "string",
+          "description" : "Cloud"
+        },
+        "assignPublicIP" : {
+          "type" : "boolean",
+          "description" : "Public IP assigned"
+        },
+        "useTimeSync" : {
+          "type" : "boolean",
+          "description" : "Is use time sync enable"
+        },
+        "mount_roots" : {
+          "type" : "string",
+          "description" : "Mount roots"
+        }
+      },
+      "description" : "Cloud specific information"
     },
     "Cluster" : {
       "type" : "object",
@@ -2947,309 +3322,381 @@
         }
       }
     },
-    "CommunicationPorts" : {
+    "Communication ports" : {
       "type" : "object",
-      "required" : [ "masterHttpPort", "masterRpcPort", "nodeExporterPort", "redisServerHttpPort", "redisServerRpcPort", "tserverHttpPort", "tserverRpcPort", "yqlServerHttpPort", "yqlServerRpcPort", "ysqlServerHttpPort", "ysqlServerRpcPort" ],
       "properties" : {
         "masterHttpPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "HTTP port for master table"
         },
         "masterRpcPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "RCP port for master table"
         },
         "tserverHttpPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "HTTP port for tserver"
         },
         "tserverRpcPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "RPC port for tserver"
         },
         "redisServerHttpPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "HTTP port for redis"
         },
         "redisServerRpcPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "RPC port for redis"
         },
         "yqlServerHttpPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "HTTP port for yql"
         },
         "yqlServerRpcPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "RPC port for yql"
         },
         "ysqlServerHttpPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "HTTP port for ysql"
         },
         "ysqlServerRpcPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "RPC port for ysql"
         },
         "nodeExporterPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Node exporter port"
         }
-      }
+      },
+      "description" : "Communication ports"
     },
-    "DeviceInfo" : {
+    "Device info" : {
       "type" : "object",
-      "required" : [ "diskIops", "mountPoints", "numVolumes", "storageClass", "storageType", "throughput", "volumeSize" ],
       "properties" : {
         "volumeSize" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "he size of each volume in each instance"
         },
         "numVolumes" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Number of volumes to be mounted on this instance at the default path"
         },
         "diskIops" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Desired Iops for the volumes mounted on this instance"
         },
         "throughput" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Desired throughput for the volumes mounted on this instance"
         },
         "storageClass" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "Name of storage class"
         },
         "mountPoints" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "omma separated list of mount points for the devices in each instance"
         },
         "storageType" : {
           "type" : "string",
+          "description" : "The type of storage used for this instance",
           "enum" : [ "IO1", "GP2", "GP3", "Scratch", "Persistent", "StandardSSD_LRS", "Premium_LRS", "UltraSSD_LRS" ]
         }
-      }
+      },
+      "description" : "Device information"
     },
-    "EncryptionAtRestConfig" : {
+    "Encryption at rest config" : {
       "type" : "object",
-      "required" : [ "encryptionAtRestEnabled", "kmsConfigUUID", "opType", "type" ],
       "properties" : {
         "encryptionAtRestEnabled" : {
-          "type" : "boolean"
+          "type" : "boolean",
+          "description" : "Whether a universe is currently encrypted at rest or not"
         },
         "kmsConfigUUID" : {
           "type" : "string",
-          "format" : "uuid"
+          "format" : "uuid",
+          "description" : "KMS configuration"
         },
         "opType" : {
           "type" : "string",
+          "description" : "Whether to enable/disable/rotate universe key/encryption at rest",
           "enum" : [ "ENABLE", "DISABLE", "UNDEFINED" ]
         },
         "type" : {
           "type" : "string",
+          "description" : "Whether to generate a data key or just retrieve the CMK arn",
           "enum" : [ "CMK", "DATA_KEY" ]
         }
-      }
+      },
+      "description" : "Encryption at rest config"
     },
-    "ExtraDependencies" : {
+    "Extra dependencies" : {
       "type" : "object",
-      "required" : [ "installNodeExporter" ],
       "properties" : {
         "installNodeExporter" : {
-          "type" : "boolean"
+          "type" : "boolean",
+          "description" : "Is install node exporter required"
         }
-      }
+      },
+      "description" : "Extra dependencies"
     },
-    "NodeDetails" : {
+    "Node details" : {
       "type" : "object",
-      "required" : [ "azUuid", "cloudInfo", "cronsActive", "isMaster", "isRedisServer", "isTserver", "isYqlServer", "isYsqlServer", "machineImage", "masterHttpPort", "masterRpcPort", "nodeExporterPort", "nodeIdx", "nodeName", "nodeUuid", "placementUuid", "redisServerHttpPort", "redisServerRpcPort", "state", "tserverHttpPort", "tserverRpcPort", "yqlServerHttpPort", "yqlServerRpcPort", "ysqlServerHttpPort", "ysqlServerRpcPort" ],
       "properties" : {
         "nodeIdx" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Node id"
         },
         "nodeName" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "Node name"
         },
         "nodeUuid" : {
           "type" : "string",
-          "format" : "uuid"
+          "format" : "uuid",
+          "description" : "Node UUID"
         },
         "cloudInfo" : {
-          "$ref" : "#/definitions/CloudSpecificInfo"
+          "description" : "Cloud information",
+          "$ref" : "#/definitions/Cloud specific info"
         },
         "azUuid" : {
           "type" : "string",
-          "format" : "uuid"
+          "format" : "uuid",
+          "description" : "Az UUID"
         },
         "placementUuid" : {
           "type" : "string",
-          "format" : "uuid"
+          "format" : "uuid",
+          "description" : "Placement UUID"
         },
         "machineImage" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "Machine image"
         },
         "state" : {
           "type" : "string",
+          "description" : "Node state",
           "enum" : [ "ToBeAdded", "ToJoinCluster", "Provisioned", "SoftwareInstalled", "UpgradeSoftware", "UpdateGFlags", "Live", "Stopping", "Starting", "Stopped", "Unreachable", "ToBeRemoved", "Removing", "Removed", "Adding", "BeingDecommissioned", "Decommissioned", "UpdateCert", "ToggleTls" ]
         },
         "isMaster" : {
-          "type" : "boolean"
+          "type" : "boolean",
+          "description" : "True if this node is a master"
         },
         "masterHttpPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Master HTTP port"
         },
         "masterRpcPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Master RCP port"
         },
         "isTserver" : {
-          "type" : "boolean"
+          "type" : "boolean",
+          "description" : "True if this node is a tserver"
         },
         "tserverHttpPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Tserver HTTP port"
         },
         "tserverRpcPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Tserver RPC port"
         },
         "isRedisServer" : {
-          "type" : "boolean"
+          "type" : "boolean",
+          "description" : "True if this node is a redis server"
         },
         "redisServerHttpPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Redis HTTP port"
         },
         "redisServerRpcPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Redis RPC port"
         },
         "isYqlServer" : {
-          "type" : "boolean"
+          "type" : "boolean",
+          "description" : "True if this node is a Yql"
         },
         "yqlServerHttpPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Yql HTTP port"
         },
         "yqlServerRpcPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Yql RPC port"
         },
         "isYsqlServer" : {
-          "type" : "boolean"
+          "type" : "boolean",
+          "description" : "True if this node is a Ysql"
         },
         "ysqlServerHttpPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Ysql HTTP port"
         },
         "ysqlServerRpcPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Ysql RPC port"
         },
         "nodeExporterPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Node exporter port"
         },
         "cronsActive" : {
-          "type" : "boolean"
+          "type" : "boolean",
+          "description" : "True if cronjobs were properly configured for this node"
         }
-      }
+      },
+      "description" : "Node details"
     },
     "NodeDetailsResp" : {
       "type" : "object",
-      "required" : [ "azUuid", "cloudInfo", "cronsActive", "isMaster", "isRedisServer", "isTserver", "isYqlServer", "isYsqlServer", "machineImage", "masterHttpPort", "masterRpcPort", "nodeExporterPort", "nodeIdx", "nodeName", "nodeUuid", "placementUuid", "redisServerHttpPort", "redisServerRpcPort", "state", "tserverHttpPort", "tserverRpcPort", "yqlServerHttpPort", "yqlServerRpcPort", "ysqlServerHttpPort", "ysqlServerRpcPort" ],
       "properties" : {
         "nodeIdx" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Node id"
         },
         "nodeName" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "Node name"
         },
         "nodeUuid" : {
           "type" : "string",
-          "format" : "uuid"
+          "format" : "uuid",
+          "description" : "Node UUID"
         },
         "cloudInfo" : {
-          "$ref" : "#/definitions/CloudSpecificInfo"
+          "description" : "Cloud information",
+          "$ref" : "#/definitions/Cloud specific info"
         },
         "azUuid" : {
           "type" : "string",
-          "format" : "uuid"
+          "format" : "uuid",
+          "description" : "Az UUID"
         },
         "placementUuid" : {
           "type" : "string",
-          "format" : "uuid"
+          "format" : "uuid",
+          "description" : "Placement UUID"
         },
         "machineImage" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "Machine image"
         },
         "state" : {
           "type" : "string",
+          "description" : "Node state",
           "enum" : [ "ToBeAdded", "ToJoinCluster", "Provisioned", "SoftwareInstalled", "UpgradeSoftware", "UpdateGFlags", "Live", "Stopping", "Starting", "Stopped", "Unreachable", "ToBeRemoved", "Removing", "Removed", "Adding", "BeingDecommissioned", "Decommissioned", "UpdateCert", "ToggleTls" ]
         },
         "isMaster" : {
-          "type" : "boolean"
+          "type" : "boolean",
+          "description" : "True if this node is a master"
         },
         "masterHttpPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Master HTTP port"
         },
         "masterRpcPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Master RCP port"
         },
         "isTserver" : {
-          "type" : "boolean"
+          "type" : "boolean",
+          "description" : "True if this node is a tserver"
         },
         "tserverHttpPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Tserver HTTP port"
         },
         "tserverRpcPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Tserver RPC port"
         },
         "isRedisServer" : {
-          "type" : "boolean"
+          "type" : "boolean",
+          "description" : "True if this node is a redis server"
         },
         "redisServerHttpPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Redis HTTP port"
         },
         "redisServerRpcPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Redis RPC port"
         },
         "isYqlServer" : {
-          "type" : "boolean"
+          "type" : "boolean",
+          "description" : "True if this node is a Yql"
         },
         "yqlServerHttpPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Yql HTTP port"
         },
         "yqlServerRpcPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Yql RPC port"
         },
         "isYsqlServer" : {
-          "type" : "boolean"
+          "type" : "boolean",
+          "description" : "True if this node is a Ysql"
         },
         "ysqlServerHttpPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Ysql HTTP port"
         },
         "ysqlServerRpcPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Ysql RPC port"
         },
         "nodeExporterPort" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Node exporter port"
         },
         "cronsActive" : {
-          "type" : "boolean"
+          "type" : "boolean",
+          "description" : "True if cronjobs were properly configured for this node"
         },
         "allowedActions" : {
           "type" : "array",
@@ -3342,143 +3789,107 @@
         }
       }
     },
-    "UniverseDefinitionTaskParams" : {
+    "Universe task" : {
       "type" : "object",
-      "required" : [ "allowInsecure", "backupInProgress", "capability", "clientRootCA", "clusters", "cmkArn", "communicationPorts", "currentClusterType", "deviceInfo", "encryptionAtRestConfig", "errorString", "expectedUniverseVersion", "extraDependencies", "firstTry", "importedState", "itestS3PackagePath", "nextClusterIndex", "nodeDetailsSet", "nodeExporterUser", "nodePrefix", "remotePackagePath", "resetAZConfig", "rootAndClientRootCASame", "rootCA", "setTxnTableWaitCountFlag", "universePaused", "universeUUID", "updateInProgress", "updateSucceeded", "userAZSelected" ],
+      "required" : [ "tableDetails", "tableType", "tableUUID" ],
       "properties" : {
         "errorString" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "Error message"
         },
         "nodeExporterUser" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "Node exporter user"
         },
         "deviceInfo" : {
-          "$ref" : "#/definitions/DeviceInfo"
+          "description" : "Device information",
+          "$ref" : "#/definitions/Device info"
         },
         "universeUUID" : {
           "type" : "string",
-          "format" : "uuid"
+          "format" : "uuid",
+          "description" : "Associate universe UUID"
         },
         "expectedUniverseVersion" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Universe version"
         },
         "cmkArn" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "Amazon Resource Name (ARN) of the CMK"
         },
         "encryptionAtRestConfig" : {
-          "$ref" : "#/definitions/EncryptionAtRestConfig"
+          "description" : "Encryption at rest configation",
+          "$ref" : "#/definitions/Encryption at rest config"
         },
         "nodeDetailsSet" : {
           "type" : "array",
+          "description" : "Node details",
           "uniqueItems" : true,
           "items" : {
-            "$ref" : "#/definitions/NodeDetails"
+            "$ref" : "#/definitions/Node details"
           }
         },
         "communicationPorts" : {
-          "$ref" : "#/definitions/CommunicationPorts"
+          "description" : "Communication ports",
+          "$ref" : "#/definitions/Communication ports"
         },
         "extraDependencies" : {
-          "$ref" : "#/definitions/ExtraDependencies"
+          "description" : "Extra dependencies",
+          "$ref" : "#/definitions/Extra dependencies"
         },
         "firstTry" : {
-          "type" : "boolean"
+          "type" : "boolean",
+          "description" : "Whether this task has been tried before or not"
         },
-        "clusters" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Cluster"
-          }
-        },
-        "currentClusterType" : {
-          "type" : "string",
-          "enum" : [ "PRIMARY", "ASYNC" ]
-        },
-        "nodePrefix" : {
-          "type" : "string"
-        },
-        "rootCA" : {
+        "tableUUID" : {
           "type" : "string",
           "format" : "uuid"
         },
-        "clientRootCA" : {
+        "tableType" : {
           "type" : "string",
-          "format" : "uuid"
+          "enum" : [ "YQL_TABLE_TYPE", "REDIS_TABLE_TYPE", "PGSQL_TABLE_TYPE", "TRANSACTION_STATUS_TABLE_TYPE" ]
         },
-        "rootAndClientRootCASame" : {
-          "type" : "boolean"
-        },
-        "userAZSelected" : {
-          "type" : "boolean"
-        },
-        "resetAZConfig" : {
-          "type" : "boolean"
-        },
-        "updateInProgress" : {
-          "type" : "boolean"
-        },
-        "backupInProgress" : {
-          "type" : "boolean"
-        },
-        "updateSucceeded" : {
-          "type" : "boolean"
-        },
-        "universePaused" : {
-          "type" : "boolean"
-        },
-        "nextClusterIndex" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "allowInsecure" : {
-          "type" : "boolean"
-        },
-        "setTxnTableWaitCountFlag" : {
-          "type" : "boolean"
-        },
-        "itestS3PackagePath" : {
-          "type" : "string"
-        },
-        "remotePackagePath" : {
-          "type" : "string"
-        },
-        "importedState" : {
-          "type" : "string",
-          "enum" : [ "NONE", "STARTED", "MASTERS_ADDED", "TSERVERS_ADDED", "IMPORTED" ]
-        },
-        "capability" : {
-          "type" : "string",
-          "enum" : [ "READ_ONLY", "EDITS_ALLOWED" ]
+        "tableDetails" : {
+          "$ref" : "#/definitions/Table details"
         }
-      }
+      },
+      "description" : "Universe task"
     },
     "UniverseDefinitionTaskParamsResp" : {
       "type" : "object",
-      "required" : [ "allowInsecure", "backupInProgress", "capability", "clientRootCA", "clusters", "cmkArn", "communicationPorts", "currentClusterType", "deviceInfo", "encryptionAtRestConfig", "errorString", "expectedUniverseVersion", "extraDependencies", "firstTry", "importedState", "itestS3PackagePath", "nextClusterIndex", "nodeExporterUser", "nodePrefix", "remotePackagePath", "resetAZConfig", "rootAndClientRootCASame", "rootCA", "setTxnTableWaitCountFlag", "universePaused", "universeUUID", "updateInProgress", "updateSucceeded", "userAZSelected" ],
+      "required" : [ "allowInsecure", "backupInProgress", "capability", "clientRootCA", "clusters", "currentClusterType", "importedState", "itestS3PackagePath", "nextClusterIndex", "nodePrefix", "remotePackagePath", "resetAZConfig", "rootAndClientRootCASame", "rootCA", "setTxnTableWaitCountFlag", "universePaused", "updateInProgress", "updateSucceeded", "userAZSelected" ],
       "properties" : {
         "errorString" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "Error message"
         },
         "nodeExporterUser" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "Node exporter user"
         },
         "deviceInfo" : {
-          "$ref" : "#/definitions/DeviceInfo"
+          "description" : "Device information",
+          "$ref" : "#/definitions/Device info"
         },
         "universeUUID" : {
           "type" : "string",
-          "format" : "uuid"
+          "format" : "uuid",
+          "description" : "Associate universe UUID"
         },
         "expectedUniverseVersion" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Universe version"
         },
         "cmkArn" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "Amazon Resource Name (ARN) of the CMK"
         },
         "encryptionAtRestConfig" : {
-          "$ref" : "#/definitions/EncryptionAtRestConfig"
+          "description" : "Encryption at rest configation",
+          "$ref" : "#/definitions/Encryption at rest config"
         },
         "nodeDetailsSet" : {
           "type" : "array",
@@ -3489,13 +3900,16 @@
           }
         },
         "communicationPorts" : {
-          "$ref" : "#/definitions/CommunicationPorts"
+          "description" : "Communication ports",
+          "$ref" : "#/definitions/Communication ports"
         },
         "extraDependencies" : {
-          "$ref" : "#/definitions/ExtraDependencies"
+          "description" : "Extra dependencies",
+          "$ref" : "#/definitions/Extra dependencies"
         },
         "firstTry" : {
-          "type" : "boolean"
+          "type" : "boolean",
+          "description" : "Whether this task has been tried before or not"
         },
         "clusters" : {
           "type" : "array",
@@ -3702,7 +4116,7 @@
           "type" : "string"
         },
         "deviceInfo" : {
-          "$ref" : "#/definitions/DeviceInfo"
+          "$ref" : "#/definitions/Device info"
         },
         "assignPublicIP" : {
           "type" : "boolean"
@@ -3771,297 +4185,6 @@
           "format" : "uuid",
           "description" : "UUID of the resource being modified  by the task",
           "readOnly" : true
-        }
-      }
-    },
-    "YWSuccess" : {
-      "type" : "object",
-      "required" : [ "message", "success" ],
-      "properties" : {
-        "success" : {
-          "type" : "boolean"
-        },
-        "message" : {
-          "type" : "string"
-        }
-      }
-    },
-    "UpgradeParams" : {
-      "type" : "object",
-      "required" : [ "allowInsecure", "backupInProgress", "capability", "certUUID", "clientRootCA", "clusters", "cmkArn", "communicationPorts", "currentClusterType", "deviceInfo", "enableClientToNodeEncrypt", "enableNodeToNodeEncrypt", "encryptionAtRestConfig", "errorString", "expectedUniverseVersion", "extraDependencies", "firstTry", "forceVMImageUpgrade", "importedState", "itestS3PackagePath", "machineImages", "masterGFlags", "nextClusterIndex", "nodeDetailsSet", "nodeExporterUser", "nodePrefix", "remotePackagePath", "resetAZConfig", "rootAndClientRootCASame", "rootCA", "rotateRoot", "setTxnTableWaitCountFlag", "sleepAfterMasterRestartMillis", "sleepAfterTServerRestartMillis", "taskType", "tserverGFlags", "universePaused", "universeUUID", "updateInProgress", "updateSucceeded", "upgradeOption", "userAZSelected", "ybSoftwareVersion" ],
-      "properties" : {
-        "errorString" : {
-          "type" : "string"
-        },
-        "nodeExporterUser" : {
-          "type" : "string"
-        },
-        "deviceInfo" : {
-          "$ref" : "#/definitions/DeviceInfo"
-        },
-        "universeUUID" : {
-          "type" : "string",
-          "format" : "uuid"
-        },
-        "expectedUniverseVersion" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "cmkArn" : {
-          "type" : "string"
-        },
-        "encryptionAtRestConfig" : {
-          "$ref" : "#/definitions/EncryptionAtRestConfig"
-        },
-        "nodeDetailsSet" : {
-          "type" : "array",
-          "uniqueItems" : true,
-          "items" : {
-            "$ref" : "#/definitions/NodeDetails"
-          }
-        },
-        "communicationPorts" : {
-          "$ref" : "#/definitions/CommunicationPorts"
-        },
-        "extraDependencies" : {
-          "$ref" : "#/definitions/ExtraDependencies"
-        },
-        "firstTry" : {
-          "type" : "boolean"
-        },
-        "clusters" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Cluster"
-          }
-        },
-        "currentClusterType" : {
-          "type" : "string",
-          "enum" : [ "PRIMARY", "ASYNC" ]
-        },
-        "nodePrefix" : {
-          "type" : "string"
-        },
-        "rootCA" : {
-          "type" : "string",
-          "format" : "uuid"
-        },
-        "clientRootCA" : {
-          "type" : "string",
-          "format" : "uuid"
-        },
-        "rootAndClientRootCASame" : {
-          "type" : "boolean"
-        },
-        "userAZSelected" : {
-          "type" : "boolean"
-        },
-        "resetAZConfig" : {
-          "type" : "boolean"
-        },
-        "updateInProgress" : {
-          "type" : "boolean"
-        },
-        "backupInProgress" : {
-          "type" : "boolean"
-        },
-        "updateSucceeded" : {
-          "type" : "boolean"
-        },
-        "universePaused" : {
-          "type" : "boolean"
-        },
-        "nextClusterIndex" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "allowInsecure" : {
-          "type" : "boolean"
-        },
-        "setTxnTableWaitCountFlag" : {
-          "type" : "boolean"
-        },
-        "itestS3PackagePath" : {
-          "type" : "string"
-        },
-        "remotePackagePath" : {
-          "type" : "string"
-        },
-        "importedState" : {
-          "type" : "string",
-          "enum" : [ "NONE", "STARTED", "MASTERS_ADDED", "TSERVERS_ADDED", "IMPORTED" ]
-        },
-        "capability" : {
-          "type" : "string",
-          "enum" : [ "READ_ONLY", "EDITS_ALLOWED" ]
-        },
-        "taskType" : {
-          "type" : "string",
-          "enum" : [ "Everything", "Software", "VMImage", "GFlags", "Restart", "Certs", "ToggleTls" ]
-        },
-        "ybSoftwareVersion" : {
-          "type" : "string"
-        },
-        "machineImages" : {
-          "type" : "object",
-          "additionalProperties" : {
-            "type" : "string"
-          }
-        },
-        "forceVMImageUpgrade" : {
-          "type" : "boolean"
-        },
-        "certUUID" : {
-          "type" : "string",
-          "format" : "uuid"
-        },
-        "rotateRoot" : {
-          "type" : "boolean"
-        },
-        "enableNodeToNodeEncrypt" : {
-          "type" : "boolean"
-        },
-        "enableClientToNodeEncrypt" : {
-          "type" : "boolean"
-        },
-        "masterGFlags" : {
-          "type" : "object",
-          "additionalProperties" : {
-            "type" : "string"
-          }
-        },
-        "tserverGFlags" : {
-          "type" : "object",
-          "additionalProperties" : {
-            "type" : "string"
-          }
-        },
-        "sleepAfterMasterRestartMillis" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "sleepAfterTServerRestartMillis" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "upgradeOption" : {
-          "type" : "string",
-          "enum" : [ "Rolling", "Non-Rolling", "Non-Restart" ]
-        }
-      }
-    },
-    "DiskIncreaseFormData" : {
-      "type" : "object",
-      "required" : [ "allowInsecure", "backupInProgress", "capability", "clientRootCA", "clusters", "cmkArn", "communicationPorts", "currentClusterType", "deviceInfo", "encryptionAtRestConfig", "errorString", "expectedUniverseVersion", "extraDependencies", "firstTry", "importedState", "itestS3PackagePath", "nextClusterIndex", "nodeDetailsSet", "nodeExporterUser", "nodePrefix", "remotePackagePath", "resetAZConfig", "rootAndClientRootCASame", "rootCA", "setTxnTableWaitCountFlag", "size", "universePaused", "universeUUID", "updateInProgress", "updateSucceeded", "userAZSelected" ],
-      "properties" : {
-        "errorString" : {
-          "type" : "string"
-        },
-        "nodeExporterUser" : {
-          "type" : "string"
-        },
-        "deviceInfo" : {
-          "$ref" : "#/definitions/DeviceInfo"
-        },
-        "universeUUID" : {
-          "type" : "string",
-          "format" : "uuid"
-        },
-        "expectedUniverseVersion" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "cmkArn" : {
-          "type" : "string"
-        },
-        "encryptionAtRestConfig" : {
-          "$ref" : "#/definitions/EncryptionAtRestConfig"
-        },
-        "nodeDetailsSet" : {
-          "type" : "array",
-          "uniqueItems" : true,
-          "items" : {
-            "$ref" : "#/definitions/NodeDetails"
-          }
-        },
-        "communicationPorts" : {
-          "$ref" : "#/definitions/CommunicationPorts"
-        },
-        "extraDependencies" : {
-          "$ref" : "#/definitions/ExtraDependencies"
-        },
-        "firstTry" : {
-          "type" : "boolean"
-        },
-        "clusters" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Cluster"
-          }
-        },
-        "currentClusterType" : {
-          "type" : "string",
-          "enum" : [ "PRIMARY", "ASYNC" ]
-        },
-        "nodePrefix" : {
-          "type" : "string"
-        },
-        "rootCA" : {
-          "type" : "string",
-          "format" : "uuid"
-        },
-        "clientRootCA" : {
-          "type" : "string",
-          "format" : "uuid"
-        },
-        "rootAndClientRootCASame" : {
-          "type" : "boolean"
-        },
-        "userAZSelected" : {
-          "type" : "boolean"
-        },
-        "resetAZConfig" : {
-          "type" : "boolean"
-        },
-        "updateInProgress" : {
-          "type" : "boolean"
-        },
-        "backupInProgress" : {
-          "type" : "boolean"
-        },
-        "updateSucceeded" : {
-          "type" : "boolean"
-        },
-        "universePaused" : {
-          "type" : "boolean"
-        },
-        "nextClusterIndex" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "allowInsecure" : {
-          "type" : "boolean"
-        },
-        "setTxnTableWaitCountFlag" : {
-          "type" : "boolean"
-        },
-        "itestS3PackagePath" : {
-          "type" : "string"
-        },
-        "remotePackagePath" : {
-          "type" : "string"
-        },
-        "importedState" : {
-          "type" : "string",
-          "enum" : [ "NONE", "STARTED", "MASTERS_ADDED", "TSERVERS_ADDED", "IMPORTED" ]
-        },
-        "capability" : {
-          "type" : "string",
-          "enum" : [ "READ_ONLY", "EDITS_ALLOWED" ]
-        },
-        "size" : {
-          "type" : "integer",
-          "format" : "int32"
         }
       }
     },
@@ -4204,6 +4327,476 @@
         }
       }
     },
+    "Column details" : {
+      "type" : "object",
+      "properties" : {
+        "columnOrder" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Column order"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "Column name"
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "Column type",
+          "enum" : [ "TINYINT", "SMALLINT", "INT", "BIGINT", "VARCHAR", "BOOLEAN", "FLOAT", "DOUBLE_PRECISION", "BLOB", "TIMESTAMP", "DECIMAL", "VARINT", "INET", "LIST", "MAP", "SET", "UUID", "TIMEUUID", "FROZEN", "DATE", "TIME", "JSONB", "USER_DEFINED_TYPE" ]
+        },
+        "keyType" : {
+          "type" : "string",
+          "description" : "Column key type",
+          "enum" : [ "TINYINT", "SMALLINT", "INT", "BIGINT", "VARCHAR", "BOOLEAN", "FLOAT", "DOUBLE_PRECISION", "BLOB", "TIMESTAMP", "DECIMAL", "VARINT", "INET", "LIST", "MAP", "SET", "UUID", "TIMEUUID", "FROZEN", "DATE", "TIME", "JSONB", "USER_DEFINED_TYPE" ]
+        },
+        "valueType" : {
+          "type" : "string",
+          "description" : "Column value name",
+          "enum" : [ "TINYINT", "SMALLINT", "INT", "BIGINT", "VARCHAR", "BOOLEAN", "FLOAT", "DOUBLE_PRECISION", "BLOB", "TIMESTAMP", "DECIMAL", "VARINT", "INET", "LIST", "MAP", "SET", "UUID", "TIMEUUID", "FROZEN", "DATE", "TIME", "JSONB", "USER_DEFINED_TYPE" ]
+        },
+        "isPartitionKey" : {
+          "type" : "boolean",
+          "description" : "True if this column is a partition key"
+        },
+        "isClusteringKey" : {
+          "type" : "boolean",
+          "description" : "True if this column is a clustering key"
+        },
+        "sortOrder" : {
+          "type" : "string",
+          "description" : "SortOrder for this column",
+          "enum" : [ "NONE", "ASC", "DESC" ]
+        }
+      },
+      "description" : "Column details"
+    },
+    "Table details" : {
+      "type" : "object",
+      "properties" : {
+        "tableName" : {
+          "type" : "string",
+          "description" : "Table name"
+        },
+        "keyspace" : {
+          "type" : "string",
+          "description" : "Keyspace that this table belongs to"
+        },
+        "ttlInSeconds" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The default table-level time to live"
+        },
+        "columns" : {
+          "type" : "array",
+          "description" : "Details of the columns that make up the table",
+          "items" : {
+            "$ref" : "#/definitions/Column details"
+          }
+        },
+        "cqlcreateKeyspaceString" : {
+          "type" : "string",
+          "description" : "CQL create keyspace detail"
+        },
+        "cqluseKeyspaceString" : {
+          "type" : "string",
+          "description" : "CQL use keyspace detail"
+        },
+        "cqlcreateTableString" : {
+          "type" : "string",
+          "description" : "CQL create table detail"
+        }
+      },
+      "description" : "Table details"
+    },
+    "Bulk import params" : {
+      "type" : "object",
+      "properties" : {
+        "errorString" : {
+          "type" : "string",
+          "description" : "Error message"
+        },
+        "nodeExporterUser" : {
+          "type" : "string",
+          "description" : "Node exporter user"
+        },
+        "deviceInfo" : {
+          "description" : "Device information",
+          "$ref" : "#/definitions/Device info"
+        },
+        "universeUUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "Associate universe UUID"
+        },
+        "expectedUniverseVersion" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Universe version"
+        },
+        "cmkArn" : {
+          "type" : "string",
+          "description" : "Amazon Resource Name (ARN) of the CMK"
+        },
+        "encryptionAtRestConfig" : {
+          "description" : "Encryption at rest configation",
+          "$ref" : "#/definitions/Encryption at rest config"
+        },
+        "nodeDetailsSet" : {
+          "type" : "array",
+          "description" : "Node details",
+          "uniqueItems" : true,
+          "items" : {
+            "$ref" : "#/definitions/Node details"
+          }
+        },
+        "communicationPorts" : {
+          "description" : "Communication ports",
+          "$ref" : "#/definitions/Communication ports"
+        },
+        "extraDependencies" : {
+          "description" : "Extra dependencies",
+          "$ref" : "#/definitions/Extra dependencies"
+        },
+        "firstTry" : {
+          "type" : "boolean",
+          "description" : "Whether this task has been tried before or not"
+        },
+        "keyspace" : {
+          "type" : "string",
+          "description" : "Key space"
+        },
+        "tableName" : {
+          "type" : "string",
+          "description" : "Table name"
+        },
+        "tableUUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "Table UUID"
+        },
+        "sse" : {
+          "type" : "boolean",
+          "description" : "Is SSE"
+        },
+        "s3Bucket" : {
+          "type" : "string",
+          "description" : "S3 bucket URL"
+        },
+        "instanceCount" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Instance count"
+        }
+      },
+      "description" : "Bulk import params"
+    },
+    "Backup Table Params" : {
+      "type" : "object",
+      "properties" : {
+        "errorString" : {
+          "type" : "string",
+          "description" : "Error message"
+        },
+        "nodeExporterUser" : {
+          "type" : "string",
+          "description" : "Node exporter user"
+        },
+        "deviceInfo" : {
+          "description" : "Device information",
+          "$ref" : "#/definitions/Device info"
+        },
+        "universeUUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "Associate universe UUID"
+        },
+        "expectedUniverseVersion" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Universe version"
+        },
+        "cmkArn" : {
+          "type" : "string",
+          "description" : "Amazon Resource Name (ARN) of the CMK"
+        },
+        "encryptionAtRestConfig" : {
+          "description" : "Encryption at rest configation",
+          "$ref" : "#/definitions/Encryption at rest config"
+        },
+        "nodeDetailsSet" : {
+          "type" : "array",
+          "description" : "Node details",
+          "uniqueItems" : true,
+          "items" : {
+            "$ref" : "#/definitions/Node details"
+          }
+        },
+        "communicationPorts" : {
+          "description" : "Communication ports",
+          "$ref" : "#/definitions/Communication ports"
+        },
+        "extraDependencies" : {
+          "description" : "Extra dependencies",
+          "$ref" : "#/definitions/Extra dependencies"
+        },
+        "firstTry" : {
+          "type" : "boolean",
+          "description" : "Whether this task has been tried before or not"
+        },
+        "keyspace" : {
+          "type" : "string",
+          "description" : "Key space"
+        },
+        "tableName" : {
+          "type" : "string",
+          "description" : "Table name"
+        },
+        "tableUUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "Table UUID"
+        },
+        "sse" : {
+          "type" : "boolean",
+          "description" : "Is SSE"
+        },
+        "storageConfigUUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "Storage config uuid"
+        },
+        "kmsConfigUUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "KMS config uuid"
+        },
+        "storageLocation" : {
+          "type" : "string",
+          "description" : "Storage location"
+        },
+        "actionType" : {
+          "type" : "string",
+          "description" : "Action type",
+          "enum" : [ "CREATE", "RESTORE", "RESTORE_KEYS", "DELETE" ]
+        },
+        "backupType" : {
+          "type" : "string",
+          "description" : "Backup type",
+          "enum" : [ "YQL_TABLE_TYPE", "REDIS_TABLE_TYPE", "PGSQL_TABLE_TYPE", "TRANSACTION_STATUS_TABLE_TYPE" ]
+        },
+        "tableNameList" : {
+          "type" : "array",
+          "description" : "Tables",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "tableUUIDList" : {
+          "type" : "array",
+          "description" : "Tables UUID's",
+          "items" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        },
+        "backupList" : {
+          "type" : "array",
+          "description" : "Backups",
+          "items" : {
+            "$ref" : "#/definitions/Backup Table Params"
+          }
+        },
+        "schedulingFrequency" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Frequency for running the backup in milliseconds"
+        },
+        "cronExpression" : {
+          "type" : "string",
+          "description" : "Cron expression in case a recurring backup"
+        },
+        "timeBeforeDelete" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Time in millisecs before deleting the backup from the storage"
+        },
+        "enableVerboseLogs" : {
+          "type" : "boolean",
+          "description" : "Is verbose logging is enable"
+        },
+        "transactionalBackup" : {
+          "type" : "boolean",
+          "description" : "Is backup be transactional across tables"
+        },
+        "parallelism" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The number of concurrent commands to run on nodes over SSH"
+        },
+        "scheduleUUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "Schedule UUID"
+        }
+      },
+      "description" : "Backup Table Params"
+    },
+    "Multi table backup request params" : {
+      "type" : "object",
+      "properties" : {
+        "errorString" : {
+          "type" : "string",
+          "description" : "Error message"
+        },
+        "nodeExporterUser" : {
+          "type" : "string",
+          "description" : "Node exporter user"
+        },
+        "deviceInfo" : {
+          "description" : "Device information",
+          "$ref" : "#/definitions/Device info"
+        },
+        "universeUUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "Associate universe UUID"
+        },
+        "expectedUniverseVersion" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Universe version"
+        },
+        "cmkArn" : {
+          "type" : "string",
+          "description" : "Amazon Resource Name (ARN) of the CMK"
+        },
+        "encryptionAtRestConfig" : {
+          "description" : "Encryption at rest configation",
+          "$ref" : "#/definitions/Encryption at rest config"
+        },
+        "nodeDetailsSet" : {
+          "type" : "array",
+          "description" : "Node details",
+          "uniqueItems" : true,
+          "items" : {
+            "$ref" : "#/definitions/Node details"
+          }
+        },
+        "communicationPorts" : {
+          "description" : "Communication ports",
+          "$ref" : "#/definitions/Communication ports"
+        },
+        "extraDependencies" : {
+          "description" : "Extra dependencies",
+          "$ref" : "#/definitions/Extra dependencies"
+        },
+        "firstTry" : {
+          "type" : "boolean",
+          "description" : "Whether this task has been tried before or not"
+        },
+        "keyspace" : {
+          "type" : "string",
+          "description" : "Key space"
+        },
+        "tableName" : {
+          "type" : "string",
+          "description" : "Table name"
+        },
+        "tableUUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "Table UUID"
+        },
+        "sse" : {
+          "type" : "boolean",
+          "description" : "Is SSE"
+        },
+        "storageConfigUUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "Storage config uuid"
+        },
+        "kmsConfigUUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "KMS config uuid"
+        },
+        "storageLocation" : {
+          "type" : "string",
+          "description" : "Storage location"
+        },
+        "actionType" : {
+          "type" : "string",
+          "description" : "Action type",
+          "enum" : [ "CREATE", "RESTORE", "RESTORE_KEYS", "DELETE" ]
+        },
+        "backupType" : {
+          "type" : "string",
+          "description" : "Backup type",
+          "enum" : [ "YQL_TABLE_TYPE", "REDIS_TABLE_TYPE", "PGSQL_TABLE_TYPE", "TRANSACTION_STATUS_TABLE_TYPE" ]
+        },
+        "tableNameList" : {
+          "type" : "array",
+          "description" : "Tables",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "tableUUIDList" : {
+          "type" : "array",
+          "description" : "Table UUID List",
+          "items" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        },
+        "backupList" : {
+          "type" : "array",
+          "description" : "Backups",
+          "items" : {
+            "$ref" : "#/definitions/Backup Table Params"
+          }
+        },
+        "schedulingFrequency" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Frequency for running the backup in milliseconds"
+        },
+        "cronExpression" : {
+          "type" : "string",
+          "description" : "Cron expression in case a recurring backup"
+        },
+        "timeBeforeDelete" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Time in millisecs before deleting the backup from the storage"
+        },
+        "enableVerboseLogs" : {
+          "type" : "boolean",
+          "description" : "Is verbose logging is enable"
+        },
+        "transactionalBackup" : {
+          "type" : "boolean",
+          "description" : "Is backup be transactional across tables"
+        },
+        "parallelism" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The number of concurrent commands to run on nodes over SSH"
+        },
+        "scheduleUUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "Schedule UUID"
+        },
+        "customerUUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "Customer uuid"
+        }
+      },
+      "description" : "Backup Table Params"
+    },
     "Customer" : {
       "type" : "object",
       "required" : [ "code", "creationDate", "customerId", "features", "name", "universeUUIDs", "uuid" ],
@@ -4243,34 +4836,14 @@
       "type" : "object",
       "required" : [ "array", "bigDecimal", "bigInteger", "binary", "boolean", "containerNode", "double", "float", "floatingPointNumber", "int", "integralNumber", "long", "missingNode", "nodeType", "null", "number", "object", "pojo", "short", "textual", "valueNode" ],
       "properties" : {
-        "array" : {
-          "type" : "boolean"
+        "nodeType" : {
+          "type" : "string",
+          "enum" : [ "ARRAY", "BINARY", "BOOLEAN", "MISSING", "NULL", "NUMBER", "OBJECT", "POJO", "STRING" ]
         },
-        "null" : {
-          "type" : "boolean"
-        },
-        "short" : {
-          "type" : "boolean"
-        },
-        "int" : {
-          "type" : "boolean"
-        },
-        "binary" : {
-          "type" : "boolean"
-        },
-        "long" : {
-          "type" : "boolean"
-        },
-        "pojo" : {
+        "object" : {
           "type" : "boolean"
         },
         "valueNode" : {
-          "type" : "boolean"
-        },
-        "number" : {
-          "type" : "boolean"
-        },
-        "double" : {
           "type" : "boolean"
         },
         "containerNode" : {
@@ -4279,10 +4852,28 @@
         "missingNode" : {
           "type" : "boolean"
         },
+        "pojo" : {
+          "type" : "boolean"
+        },
+        "number" : {
+          "type" : "boolean"
+        },
         "integralNumber" : {
           "type" : "boolean"
         },
         "floatingPointNumber" : {
+          "type" : "boolean"
+        },
+        "short" : {
+          "type" : "boolean"
+        },
+        "int" : {
+          "type" : "boolean"
+        },
+        "long" : {
+          "type" : "boolean"
+        },
+        "double" : {
           "type" : "boolean"
         },
         "bigDecimal" : {
@@ -4297,12 +4888,14 @@
         "boolean" : {
           "type" : "boolean"
         },
-        "object" : {
+        "binary" : {
           "type" : "boolean"
         },
-        "nodeType" : {
-          "type" : "string",
-          "enum" : [ "ARRAY", "BINARY", "BOOLEAN", "MISSING", "NULL", "NUMBER", "OBJECT", "POJO", "STRING" ]
+        "array" : {
+          "type" : "boolean"
+        },
+        "null" : {
+          "type" : "boolean"
         },
         "float" : {
           "type" : "boolean"
@@ -4419,19 +5012,6 @@
         }
       }
     },
-    "TaskSuccessData" : {
-      "type" : "object",
-      "required" : [ "success", "taskUUID" ],
-      "properties" : {
-        "success" : {
-          "type" : "boolean"
-        },
-        "taskUUID" : {
-          "type" : "string",
-          "format" : "uuid"
-        }
-      }
-    },
     "NodeActionFormData" : {
       "type" : "object",
       "required" : [ "nodeAction" ],
@@ -4446,38 +5026,17 @@
       "type" : "object",
       "required" : [ "array", "bigDecimal", "bigInteger", "binary", "boolean", "containerNode", "double", "float", "floatingPointNumber", "int", "integralNumber", "long", "missingNode", "nodeType", "null", "number", "object", "pojo", "short", "textual", "valueNode" ],
       "properties" : {
-        "array" : {
-          "type" : "boolean"
-        },
         "nodeType" : {
           "type" : "string",
           "enum" : [ "ARRAY", "BINARY", "BOOLEAN", "MISSING", "NULL", "NUMBER", "OBJECT", "POJO", "STRING" ]
         },
-        "null" : {
+        "array" : {
           "type" : "boolean"
         },
-        "short" : {
-          "type" : "boolean"
-        },
-        "int" : {
-          "type" : "boolean"
-        },
-        "binary" : {
-          "type" : "boolean"
-        },
-        "long" : {
-          "type" : "boolean"
-        },
-        "pojo" : {
+        "object" : {
           "type" : "boolean"
         },
         "valueNode" : {
-          "type" : "boolean"
-        },
-        "number" : {
-          "type" : "boolean"
-        },
-        "double" : {
           "type" : "boolean"
         },
         "containerNode" : {
@@ -4486,10 +5045,28 @@
         "missingNode" : {
           "type" : "boolean"
         },
+        "pojo" : {
+          "type" : "boolean"
+        },
+        "number" : {
+          "type" : "boolean"
+        },
         "integralNumber" : {
           "type" : "boolean"
         },
         "floatingPointNumber" : {
+          "type" : "boolean"
+        },
+        "short" : {
+          "type" : "boolean"
+        },
+        "int" : {
+          "type" : "boolean"
+        },
+        "long" : {
+          "type" : "boolean"
+        },
+        "double" : {
           "type" : "boolean"
         },
         "bigDecimal" : {
@@ -4504,7 +5081,10 @@
         "boolean" : {
           "type" : "boolean"
         },
-        "object" : {
+        "binary" : {
+          "type" : "boolean"
+        },
+        "null" : {
           "type" : "boolean"
         },
         "float" : {
