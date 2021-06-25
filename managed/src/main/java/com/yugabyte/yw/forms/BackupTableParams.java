@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-@ApiModel(value = "Backup Table Params", description = "Backup Table Params")
+@ApiModel(value = "Backup table params", description = "Backup table params")
 public class BackupTableParams extends TableManagerParams {
   public enum ActionType {
     CREATE,
@@ -24,10 +24,10 @@ public class BackupTableParams extends TableManagerParams {
   }
 
   @Constraints.Required
-  @ApiModelProperty(value = "Storage config uuid", required = true)
+  @ApiModelProperty(value = "Storage config UUID", required = true)
   public UUID storageConfigUUID;
 
-  @ApiModelProperty(value = "KMS config uuid")
+  @ApiModelProperty(value = "KMS config UUID")
   public UUID kmsConfigUUID = null;
 
   // Specifies the backup storage location in case of S3 it would have

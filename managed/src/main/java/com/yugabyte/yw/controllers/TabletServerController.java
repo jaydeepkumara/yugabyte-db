@@ -12,6 +12,7 @@ import com.yugabyte.yw.common.services.YBClientService;
 import com.yugabyte.yw.forms.YWResults;
 import com.yugabyte.yw.models.Customer;
 import com.yugabyte.yw.models.Universe;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yb.client.ListTabletServersResponse;
@@ -21,6 +22,9 @@ import play.mvc.Result;
 
 import java.util.UUID;
 
+@Api(
+    value = "Tablet Server",
+    authorizations = @Authorization(AbstractPlatformController.API_KEY_AUTH))
 public class TabletServerController extends AuthenticatedController {
   public static final Logger LOG = LoggerFactory.getLogger(TabletServerController.class);
   @Inject ApiHelper apiHelper;
@@ -37,6 +41,7 @@ public class TabletServerController extends AuthenticatedController {
    *
    * @return Result tablet server uuids
    */
+  @ApiOperation(value = "List of tablet server", response = Object.class, responseContainer = "Map")
   public Result list() {
     ObjectNode result = Json.newObject();
     YBClient client = null;
@@ -68,6 +73,7 @@ public class TabletServerController extends AuthenticatedController {
    * @param universeUUID UUID of the universe
    * @return Result tablet server information
    */
+  @ApiOperation(value = "List of tablet server", response = Object.class, responseContainer = "Map")
   public Result listTabletServers(UUID customerUUID, UUID universeUUID) {
     // Validate customer UUID
     Customer.getOrBadRequest(customerUUID);

@@ -7,7 +7,6 @@ import com.google.inject.Inject;
 import com.yugabyte.yw.common.ReleaseManager;
 import com.yugabyte.yw.common.ValidatingFormFactory;
 import com.yugabyte.yw.common.YWServiceException;
-import com.yugabyte.yw.forms.EmptyResponseData;
 import com.yugabyte.yw.forms.ReleaseFormData;
 import com.yugabyte.yw.forms.YWResults;
 import com.yugabyte.yw.models.Customer;
@@ -30,7 +29,7 @@ public class ReleaseController extends AuthenticatedController {
 
   @Inject ValidatingFormFactory formFactory;
 
-  @ApiOperation(value = "Create release", response = EmptyResponseData.class)
+  @ApiOperation(value = "Create release", response = YWResults.YWSuccess.class)
   @ApiImplicitParams({
     @ApiImplicitParam(
         name = "Release",
@@ -97,7 +96,7 @@ public class ReleaseController extends AuthenticatedController {
     return YWResults.withData(m);
   }
 
-  @ApiOperation(value = "Refresh release", response = EmptyResponseData.class)
+  @ApiOperation(value = "Refresh release", response = YWResults.YWSuccess.class)
   public Result refresh(UUID customerUUID) {
     Customer customer = Customer.getOrBadRequest(customerUUID);
 

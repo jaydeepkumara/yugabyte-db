@@ -42,7 +42,7 @@ public class ReleaseManager {
 
   final ConfigHelper.ConfigType CONFIG_TYPE = ConfigHelper.ConfigType.SoftwareReleases;
 
-  @ApiModel(value = "Release Data", description = "Release Data")
+  @ApiModel(value = "Release data", description = "Release data")
   public static class ReleaseMetadata {
 
     @ApiModelProperty(value = "Release state", example = "ACTIVE")
@@ -52,7 +52,7 @@ public class ReleaseManager {
     public List<String> notes;
 
     // File path where the release binary is stored
-    @ApiModelProperty(value = "Release File path")
+    @ApiModelProperty(value = "Release file path")
     public String filePath;
 
     // Docker image tag corresponding to the release

@@ -60,7 +60,7 @@ public class TablesController extends AuthenticatedController {
     this.ybService = service;
   }
 
-  @ApiOperation(value = "Create Table", response = YWResults.YWTask.class)
+  @ApiOperation(value = "Create table", response = YWResults.YWTask.class)
   @ApiImplicitParams({
     @ApiImplicitParam(
         name = "Table",
@@ -297,11 +297,11 @@ public class TablesController extends AuthenticatedController {
     }
   }
 
-  @ApiOperation(value = "Create Multiple table backup", response = YWResults.YWTask.class)
+  @ApiOperation(value = "Create multiple table backup", response = YWResults.YWTask.class)
   @ApiImplicitParams({
     @ApiImplicitParam(
-        name = "Table",
-        value = "Table data to be created",
+        name = "Table backup",
+        value = "Table backup data to be created",
         required = true,
         dataType = "com.yugabyte.yw.forms.MultiTableBackupRequestParams",
         paramType = "body")
@@ -372,7 +372,7 @@ public class TablesController extends AuthenticatedController {
     }
   }
 
-  @ApiOperation(value = "Create Multiple table backup", response = YWResults.YWTask.class)
+  @ApiOperation(value = "Create multiple table backup", response = YWResults.YWTask.class)
   @ApiImplicitParams({
     @ApiImplicitParam(
         name = "Backup",

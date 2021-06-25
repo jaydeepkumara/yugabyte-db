@@ -15,7 +15,7 @@ import static io.swagger.annotations.ApiModelProperty.AccessMode.READ_ONLY;
 public class NodeInstanceFormData {
 
   @Constraints.Required
-  @ApiModelProperty(value = "Node Instances", required = true)
+  @ApiModelProperty(value = "Node instances", required = true)
   public List<NodeInstanceData> nodes;
 
   @ApiModel(description = "Detail of node instance")

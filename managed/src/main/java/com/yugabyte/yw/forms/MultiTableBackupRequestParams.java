@@ -7,10 +7,10 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.*;
 
 /** This class will be used by Table controller createMultiTableBackup API. */
-@ApiModel(value = "Multi table backup request params", description = "Backup Table Params")
+@ApiModel(value = "Multi table backup request params", description = "Backup table params")
 public class MultiTableBackupRequestParams extends BackupTableParams {
 
-  @ApiModelProperty(value = "Customer uuid")
+  @ApiModelProperty(value = "Customer UUID")
   public UUID customerUUID;
 
   @ApiModelProperty(value = "Table UUID List")

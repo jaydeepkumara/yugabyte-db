@@ -134,7 +134,7 @@ public class NodeInstanceController extends AuthenticatedController {
    * Endpoint deletes the configured instance for a provider. Since instance name and instance uuid
    * are absent in a pristine (unused) instance We use IP to query for Instance and delete it
    */
-  @ApiOperation(value = "Delete node instance by ip")
+  @ApiOperation(value = "Delete node instance by IP")
   public Result deleteInstance(UUID customerUUID, UUID providerUUID, String instanceIP) {
     // Validate customer UUID and universe UUID and AWS provider.
     Customer customer = Customer.getOrBadRequest(customerUUID);

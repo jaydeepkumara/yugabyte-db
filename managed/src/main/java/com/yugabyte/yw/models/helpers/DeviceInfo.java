@@ -21,7 +21,7 @@ public class DeviceInfo {
   public Integer numVolumes;
 
   // Desired Iops for the volumes mounted on this instance (if specified).
-  @ApiModelProperty(value = "Desired Iops for the volumes mounted on this instance")
+  @ApiModelProperty(value = "Desired iops for the volumes mounted on this instance")
   public Integer diskIops;
 
   // Desired throughput for the volumes mounted on this instance (if specified).
@@ -33,7 +33,7 @@ public class DeviceInfo {
   public String storageClass = "standard";
 
   // Comma separated list of mount points for the devices in each instance (if specified).
-  @ApiModelProperty(value = "omma separated list of mount points for the devices in each instance")
+  @ApiModelProperty(value = "Comma separated list of mount points for the devices in each instance")
   public String mountPoints;
 
   // The type of storage used for this instance (null if instance volume type is not EBS).
