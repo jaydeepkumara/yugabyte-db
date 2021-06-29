@@ -7,7 +7,6 @@ import com.yugabyte.yw.commissioner.Commissioner;
 import com.yugabyte.yw.commissioner.tasks.params.NodeTaskParams;
 import com.yugabyte.yw.common.ApiResponse;
 import com.yugabyte.yw.common.NodeActionType;
-import com.yugabyte.yw.common.ValidatingFormFactory;
 import com.yugabyte.yw.common.YWServiceException;
 import com.yugabyte.yw.forms.NodeActionFormData;
 import com.yugabyte.yw.forms.NodeInstanceFormData;
@@ -32,7 +31,6 @@ import java.util.UUID;
     value = "Node Instances",
     authorizations = @Authorization(AbstractPlatformController.API_KEY_AUTH))
 public class NodeInstanceController extends AuthenticatedController {
-  @Inject ValidatingFormFactory formFactory;
 
   @Inject Commissioner commissioner;
 
