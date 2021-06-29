@@ -241,6 +241,14 @@ DEFINE_test_flag(bool, pause_before_post_split_compation, false,
 DEFINE_test_flag(bool, disable_adding_user_frontier_to_sst, false,
                  "Prevents adding the UserFrontier to SST file in order to mimic older files.");
 
+// FLAGS_TEST_disable_getting_user_frontier_from_mem_table is used in conjunction with
+// FLAGS_TEST_disable_adding_user_frontier_to_sst.  Two flags are needed for the case in which
+// we're writing a mixture of SST files with and without UserFrontiers, to ensure that we're
+// not attempting to read the UserFrontier from the MemTable in either case.
+DEFINE_test_flag(bool, disable_getting_user_frontier_from_mem_table, false,
+                 "Prevents checking the MemTable for a UserFrontier for test cases where we are "
+                 "generating SST files without UserFrontiers.");
+
 DECLARE_int32(client_read_write_timeout_ms);
 DECLARE_bool(consistent_restore);
 DECLARE_int32(rocksdb_level0_slowdown_writes_trigger);
@@ -328,7 +336,7 @@ docdb::ConsensusFrontiers* InitFrontiers(const Data& data, docdb::ConsensusFront
 rocksdb::UserFrontierPtr MemTableFrontierFromDb(
     rocksdb::DB* db,
     rocksdb::UpdateUserValueType type) {
-  if (FLAGS_TEST_disable_adding_user_frontier_to_sst) {
+  if (FLAGS_TEST_disable_getting_user_frontier_from_mem_table) {
     return nullptr;
   }
   return db->GetMutableMemTableFrontier(type);
@@ -3192,8 +3200,8 @@ size_t Tablet::TEST_CountRegularDBRecords() {
   return result;
 }
 
-template <class Functor, class Value>
-Value Tablet::GetRegularDbStat(const Functor& functor, const Value& default_value) const {
+template <class F>
+auto Tablet::GetRegularDbStat(const F& func, const decltype(func())& default_value) const {
   ScopedRWOperation scoped_operation(&pending_op_counter_);
   std::lock_guard<rw_spinlock> lock(component_lock_);
 
@@ -3202,9 +3210,8 @@ Value Tablet::GetRegularDbStat(const Functor& functor, const Value& default_valu
   if (!scoped_operation.ok() || !regular_db_) {
     return default_value;
   }
-  return functor();
+  return func();
 }
-
 
 uint64_t Tablet::GetCurrentVersionSstFilesSize() const {
   return GetRegularDbStat([this] {
@@ -3569,6 +3576,26 @@ Status Tablet::RestoreFinished(
   }
   RETURN_NOT_OK(metadata_->Flush());
 
+  SyncRestoringOperationFilter();
+
+  return Status::OK();
+}
+
+Status Tablet::CheckRestorations(const RestorationCompleteTimeMap& restoration_complete_time) {
+  auto restoration_hybrid_time = metadata_->CheckCompleteRestorations(restoration_complete_time);
+  if (restoration_hybrid_time != HybridTime::kMin
+      && transaction_participant_
+      && FLAGS_consistent_restore) {
+    transaction_participant_->IgnoreAllTransactionsStartedBefore(restoration_hybrid_time);
+  }
+
+  // We cannot do it in a single shot, because should update transaction participant before
+  // removing active transactions.
+  if (!metadata_->CleanupRestorations(restoration_complete_time)) {
+    return Status::OK();
+  }
+
+  RETURN_NOT_OK(metadata_->Flush());
   SyncRestoringOperationFilter();
 
   return Status::OK();
