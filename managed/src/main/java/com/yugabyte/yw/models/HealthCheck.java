@@ -18,6 +18,7 @@ import io.ebean.*;
 import io.ebean.annotation.DbJson;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import play.data.validation.Constraints;
 import play.libs.Json;
@@ -30,13 +31,15 @@ public class HealthCheck extends Model {
     public static class NodeData {
       public String node;
       public String process;
-      public String timestamp;
+      @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+      public Date timestamp;
       public String node_name;
       public Boolean has_error;
       public List<String> details;
       public String message;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     public Date timestamp;
     public List<NodeData> data = new ArrayList<>();
     public String yb_version;
