@@ -73,11 +73,7 @@ public class CustomerConfig extends Model {
   public UUID configUUID;
 
   @Column(length = 100, nullable = true)
-  @ApiModelProperty(
-      value = "Config name",
-      allowableValues = "range[-infinity, 100]",
-      dataType = "java.lang.String",
-      example = "backup20-01-2021")
+  @ApiModelProperty(value = "Config name", example = "backup20-01-2021")
   public String configName;
 
   @Column(nullable = false)
@@ -85,19 +81,11 @@ public class CustomerConfig extends Model {
   public UUID customerUUID;
 
   @Column(length = 25, nullable = false)
-  @ApiModelProperty(
-      value = "Config type",
-      allowableValues = "range[-infinity, 25]",
-      dataType = "java.lang.String",
-      example = "STORAGE")
+  @ApiModelProperty(value = "Config type", example = "STORAGE")
   public ConfigType type;
 
   @Column(length = 100, nullable = false)
-  @ApiModelProperty(
-      value = "Name",
-      allowableValues = "range[-infinity, 100]",
-      dataType = "java.lang.String",
-      example = "S3")
+  @ApiModelProperty(value = "Name", example = "S3")
   public String name;
 
   @Constraints.Required
