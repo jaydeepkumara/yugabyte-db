@@ -610,79 +610,6 @@
         } ]
       }
     },
-    "/api/v1/customers/{cUUID}/universes/{uniUUID}/tables" : {
-      "get" : {
-        "tags" : [ "Tables" ],
-        "summary" : "List of tables",
-        "description" : "",
-        "operationId" : "listTables",
-        "parameters" : [ {
-          "name" : "cUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        }, {
-          "name" : "uniUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/TableInfo"
-              }
-            }
-          }
-        },
-        "security" : [ {
-          "apiKeyAuth" : [ ]
-        } ]
-      },
-      "post" : {
-        "tags" : [ "Tables" ],
-        "summary" : "Create table in Yugabyte DB",
-        "description" : "",
-        "operationId" : "createTable",
-        "parameters" : [ {
-          "name" : "cUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        }, {
-          "name" : "uniUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        }, {
-          "in" : "body",
-          "name" : "Table",
-          "description" : "Table Definition to be created",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/Universe task"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/YWTask"
-            }
-          }
-        },
-        "security" : [ {
-          "apiKeyAuth" : [ ]
-        } ]
-      }
-    },
     "/api/v1/customers/{cUUID}/universes/{uniUUID}/tables/{tableUUID}" : {
       "get" : {
         "tags" : [ "Tables" ],
@@ -782,6 +709,79 @@
           "required" : true,
           "type" : "string",
           "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/YWTask"
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/customers/{cUUID}/universes/{uniUUID}/tables" : {
+      "get" : {
+        "tags" : [ "Tables" ],
+        "summary" : "List of tables",
+        "description" : "",
+        "operationId" : "listTables",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "uniUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/TableInfo"
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Tables" ],
+        "summary" : "Create table in Yugabyte DB",
+        "description" : "",
+        "operationId" : "createTable",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "uniUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "in" : "body",
+          "name" : "Table",
+          "description" : "Table Definition to be created",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Universe task"
+          }
         } ],
         "responses" : {
           "200" : {
@@ -1080,18 +1080,6 @@
         }
       }
     },
-    "/api/v1/logout" : {
-      "get" : {
-        "tags" : [ "Session" ],
-        "operationId" : "logout",
-        "parameters" : [ ],
-        "responses" : {
-          "default" : {
-            "description" : "successful operation"
-          }
-        }
-      }
-    },
     "/universes/{uniUUID}/proxy/{proxyUrl}" : {
       "get" : {
         "tags" : [ "Session" ],
@@ -1268,6 +1256,18 @@
       "get" : {
         "tags" : [ "Session" ],
         "operationId" : "getUITheme",
+        "parameters" : [ ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/logout" : {
+      "get" : {
+        "tags" : [ "Session" ],
+        "operationId" : "logout",
         "parameters" : [ ],
         "responses" : {
           "default" : {
@@ -2104,6 +2104,35 @@
         } ]
       }
     },
+    "/api/v1/customers/{cUUID}/providers/{pUUID}/initialize" : {
+      "get" : {
+        "tags" : [ "Provider" ],
+        "summary" : "refreshPricing",
+        "description" : "Refresh Provider pricing info",
+        "operationId" : "initialize",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "pUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      }
+    },
     "/api/v1/customers/{cUUID}/providers/{pUUID}/bootstrap" : {
       "post" : {
         "tags" : [ "Provider" ],
@@ -2164,85 +2193,6 @@
             "schema" : {
               "$ref" : "#/definitions/Provider"
             }
-          }
-        },
-        "security" : [ {
-          "apiKeyAuth" : [ ]
-        } ]
-      }
-    },
-    "/api/v1/customers/{cUUID}/providers" : {
-      "get" : {
-        "tags" : [ "Provider1" ],
-        "summary" : "listProvider",
-        "description" : "",
-        "operationId" : "getListOfProviders",
-        "parameters" : [ {
-          "name" : "cUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Provider"
-              }
-            }
-          }
-        },
-        "security" : [ {
-          "apiKeyAuth" : [ ]
-        } ]
-      },
-      "post" : {
-        "tags" : [ "Provider" ],
-        "summary" : "createCloudProvider",
-        "description" : "",
-        "operationId" : "createCloudProvider",
-        "parameters" : [ {
-          "name" : "cUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        } ],
-        "responses" : {
-          "default" : {
-            "description" : "successful operation"
-          }
-        },
-        "security" : [ {
-          "apiKeyAuth" : [ ]
-        } ]
-      }
-    },
-    "/api/v1/customers/{cUUID}/providers/{pUUID}/initialize" : {
-      "get" : {
-        "tags" : [ "Provider" ],
-        "summary" : "refreshPricing",
-        "description" : "Refresh Provider pricing info",
-        "operationId" : "initialize",
-        "parameters" : [ {
-          "name" : "cUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        }, {
-          "name" : "pUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        } ],
-        "responses" : {
-          "default" : {
-            "description" : "successful operation"
           }
         },
         "security" : [ {
@@ -2457,32 +2407,6 @@
         } ]
       }
     },
-    "/metamaster/universe/{universeUUID}" : {
-      "get" : {
-        "tags" : [ "Metamaster" ],
-        "summary" : "get masters list",
-        "description" : "",
-        "operationId" : "get",
-        "parameters" : [ {
-          "name" : "universeUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/MastersList"
-            }
-          }
-        },
-        "security" : [ {
-          "apiKeyAuth" : [ ]
-        } ]
-      }
-    },
     "/api/v1/customers/{cUUID}/universes/{uniUUID}/masters" : {
       "get" : {
         "tags" : [ "Metamaster" ],
@@ -2611,7 +2535,60 @@
         } ]
       }
     },
-    "/api/v1/customers/{cUUID}/providers1" : {
+    "/metamaster/universe/{universeUUID}" : {
+      "get" : {
+        "tags" : [ "Metamaster" ],
+        "summary" : "get masters list",
+        "description" : "",
+        "operationId" : "get",
+        "parameters" : [ {
+          "name" : "universeUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/MastersList"
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/customers/{cUUID}/providers" : {
+      "get" : {
+        "tags" : [ "Provider1" ],
+        "summary" : "listProvider",
+        "description" : "",
+        "operationId" : "getListOfProviders",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Provider"
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      },
       "post" : {
         "tags" : [ "Provider1" ],
         "summary" : "createProvider",
@@ -2636,6 +2613,43 @@
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/YWTask"
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/customers/{cUUID}/features" : {
+      "put" : {
+        "tags" : [ "Customer" ],
+        "summary" : "Upsert features of customer by UUID",
+        "description" : "",
+        "operationId" : "upsertFeatures",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "in" : "body",
+          "name" : "Feature",
+          "description" : "Feature to be upserted",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/FeatureUpdateFormData"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "object"
+              }
             }
           }
         },
@@ -2768,43 +2782,6 @@
           "required" : true,
           "schema" : {
             "$ref" : "#/definitions/Metrics"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "object",
-              "additionalProperties" : {
-                "type" : "object"
-              }
-            }
-          }
-        },
-        "security" : [ {
-          "apiKeyAuth" : [ ]
-        } ]
-      }
-    },
-    "/api/v1/customers/{cUUID}/features" : {
-      "put" : {
-        "tags" : [ "Customer" ],
-        "summary" : "Upsert features of customer by UUID",
-        "description" : "",
-        "operationId" : "upsertFeatures",
-        "parameters" : [ {
-          "name" : "cUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        }, {
-          "in" : "body",
-          "name" : "Feature",
-          "description" : "Feature to be upserted",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/FeatureUpdateFormData"
           }
         } ],
         "responses" : {
@@ -3105,45 +3082,6 @@
         } ]
       }
     },
-    "/api/v1/customers/{cUUID}/releases/{name}" : {
-      "put" : {
-        "tags" : [ "Release" ],
-        "summary" : "Update release",
-        "description" : "",
-        "operationId" : "updateRelease",
-        "parameters" : [ {
-          "name" : "cUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        }, {
-          "name" : "name",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "Release",
-          "description" : "Release data to be updated",
-          "required" : true,
-          "schema" : {
-            "type" : "object"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/Release data"
-            }
-          }
-        },
-        "security" : [ {
-          "apiKeyAuth" : [ ]
-        } ]
-      }
-    },
     "/api/v1/customers/{cUUID}/releases" : {
       "get" : {
         "tags" : [ "Release" ],
@@ -3235,21 +3173,75 @@
         } ]
       }
     },
-    "/api/v1/runtime_config/mutable_keys" : {
-      "get" : {
-        "tags" : [ "RuntimeConfig" ],
-        "summary" : "list Mutable keys",
-        "description" : "List all the mutable runtime config keys",
-        "operationId" : "listKeys",
-        "parameters" : [ ],
+    "/api/v1/customers/{cUUID}/releases/{name}" : {
+      "put" : {
+        "tags" : [ "Release" ],
+        "summary" : "Update release",
+        "description" : "",
+        "operationId" : "updateRelease",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "Release",
+          "description" : "Release data to be updated",
+          "required" : true,
+          "schema" : {
+            "type" : "object"
+          }
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string"
-              }
+              "$ref" : "#/definitions/Release data"
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/customers/{cUUID}/runtime_config/{scope}" : {
+      "get" : {
+        "tags" : [ "RuntimeConfig" ],
+        "summary" : "list config entries for a scope",
+        "description" : "Lists all runtime config entries for a given scopes for current customer.",
+        "operationId" : "getConfig",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "scope",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "includeInherited",
+          "in" : "query",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Runtime config data"
             }
           }
         },
@@ -3366,36 +3358,21 @@
         } ]
       }
     },
-    "/api/v1/customers/{cUUID}/runtime_config/{scope}" : {
+    "/api/v1/runtime_config/mutable_keys" : {
       "get" : {
         "tags" : [ "RuntimeConfig" ],
-        "summary" : "list config entries for a scope",
-        "description" : "Lists all runtime config entries for a given scopes for current customer.",
-        "operationId" : "getConfig",
-        "parameters" : [ {
-          "name" : "cUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        }, {
-          "name" : "scope",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        }, {
-          "name" : "includeInherited",
-          "in" : "query",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        } ],
+        "summary" : "list Mutable keys",
+        "description" : "List all the mutable runtime config keys",
+        "operationId" : "listKeys",
+        "parameters" : [ ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/Runtime config data"
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
             }
           }
         },
@@ -3941,38 +3918,6 @@
         } ]
       }
     },
-    "/api/v1/customers/{cUUID}/universes/{uniUUID}/resume" : {
-      "post" : {
-        "tags" : [ "Universe Actions" ],
-        "summary" : "Resume the universe",
-        "description" : "",
-        "operationId" : "resume",
-        "parameters" : [ {
-          "name" : "cUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        }, {
-          "name" : "uniUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/YWTask"
-            }
-          }
-        },
-        "security" : [ {
-          "apiKeyAuth" : [ ]
-        } ]
-      }
-    },
     "/api/v1/customers/{cUUID}/universes/{uniUUID}/set_key" : {
       "post" : {
         "tags" : [ "Universe Actions" ],
@@ -4029,6 +3974,38 @@
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/YWSuccess"
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/customers/{cUUID}/universes/{uniUUID}/resume" : {
+      "post" : {
+        "tags" : [ "Universe Actions" ],
+        "summary" : "Resume the universe",
+        "description" : "",
+        "operationId" : "resume",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "name" : "uniUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/YWTask"
             }
           }
         },
@@ -4202,35 +4179,6 @@
         } ]
       }
     },
-    "/api/v1/customers/{cUUID}/alerts" : {
-      "get" : {
-        "tags" : [ "Alert" ],
-        "summary" : "listAlerts",
-        "description" : "",
-        "operationId" : "listOfAlerts",
-        "parameters" : [ {
-          "name" : "cUUID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string",
-          "format" : "uuid"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Alert"
-              }
-            }
-          }
-        },
-        "security" : [ {
-          "apiKeyAuth" : [ ]
-        } ]
-      }
-    },
     "/api/v1/customers/{cUUID}/alerts/acknowledge" : {
       "post" : {
         "tags" : [ "Alert" ],
@@ -4250,6 +4198,35 @@
           "schema" : {
             "$ref" : "#/definitions/AlertApiFilter"
           }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Alert"
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyAuth" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/customers/{cUUID}/alerts" : {
+      "get" : {
+        "tags" : [ "Alert" ],
+        "summary" : "listAlerts",
+        "description" : "",
+        "operationId" : "listOfAlerts",
+        "parameters" : [ {
+          "name" : "cUUID",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
         } ],
         "responses" : {
           "200" : {
@@ -6201,36 +6178,6 @@
         "object" : {
           "type" : "boolean"
         },
-        "array" : {
-          "type" : "boolean"
-        },
-        "null" : {
-          "type" : "boolean"
-        },
-        "float" : {
-          "type" : "boolean"
-        },
-        "long" : {
-          "type" : "boolean"
-        },
-        "binary" : {
-          "type" : "boolean"
-        },
-        "pojo" : {
-          "type" : "boolean"
-        },
-        "short" : {
-          "type" : "boolean"
-        },
-        "double" : {
-          "type" : "boolean"
-        },
-        "number" : {
-          "type" : "boolean"
-        },
-        "int" : {
-          "type" : "boolean"
-        },
         "valueNode" : {
           "type" : "boolean"
         },
@@ -6240,10 +6187,28 @@
         "missingNode" : {
           "type" : "boolean"
         },
+        "pojo" : {
+          "type" : "boolean"
+        },
+        "number" : {
+          "type" : "boolean"
+        },
         "integralNumber" : {
           "type" : "boolean"
         },
         "floatingPointNumber" : {
+          "type" : "boolean"
+        },
+        "short" : {
+          "type" : "boolean"
+        },
+        "int" : {
+          "type" : "boolean"
+        },
+        "long" : {
+          "type" : "boolean"
+        },
+        "double" : {
           "type" : "boolean"
         },
         "bigDecimal" : {
@@ -6256,6 +6221,18 @@
           "type" : "boolean"
         },
         "boolean" : {
+          "type" : "boolean"
+        },
+        "binary" : {
+          "type" : "boolean"
+        },
+        "float" : {
+          "type" : "boolean"
+        },
+        "array" : {
+          "type" : "boolean"
+        },
+        "null" : {
           "type" : "boolean"
         }
       }
@@ -6635,33 +6612,6 @@
         "object" : {
           "type" : "boolean"
         },
-        "null" : {
-          "type" : "boolean"
-        },
-        "float" : {
-          "type" : "boolean"
-        },
-        "long" : {
-          "type" : "boolean"
-        },
-        "binary" : {
-          "type" : "boolean"
-        },
-        "pojo" : {
-          "type" : "boolean"
-        },
-        "short" : {
-          "type" : "boolean"
-        },
-        "double" : {
-          "type" : "boolean"
-        },
-        "number" : {
-          "type" : "boolean"
-        },
-        "int" : {
-          "type" : "boolean"
-        },
         "valueNode" : {
           "type" : "boolean"
         },
@@ -6671,10 +6621,28 @@
         "missingNode" : {
           "type" : "boolean"
         },
+        "pojo" : {
+          "type" : "boolean"
+        },
+        "number" : {
+          "type" : "boolean"
+        },
         "integralNumber" : {
           "type" : "boolean"
         },
         "floatingPointNumber" : {
+          "type" : "boolean"
+        },
+        "short" : {
+          "type" : "boolean"
+        },
+        "int" : {
+          "type" : "boolean"
+        },
+        "long" : {
+          "type" : "boolean"
+        },
+        "double" : {
           "type" : "boolean"
         },
         "bigDecimal" : {
@@ -6687,6 +6655,15 @@
           "type" : "boolean"
         },
         "boolean" : {
+          "type" : "boolean"
+        },
+        "binary" : {
+          "type" : "boolean"
+        },
+        "float" : {
+          "type" : "boolean"
+        },
+        "null" : {
           "type" : "boolean"
         }
       }
@@ -6728,14 +6705,14 @@
           "description" : "Configuration data",
           "$ref" : "#/definitions/JsonNode"
         },
-        "inUse" : {
-          "type" : "boolean",
-          "description" : "True if there is an in use reference to the object"
-        },
         "universeDetails" : {
           "example" : "{\"name\": \"jd-aws-21-6-21-test4\"}",
           "description" : "Universe details",
           "$ref" : "#/definitions/ArrayNode"
+        },
+        "inUse" : {
+          "type" : "boolean",
+          "description" : "True if there is an in use reference to the object"
         }
       },
       "description" : "Customers Configuration"
@@ -6849,6 +6826,11 @@
           "description" : "Details about the Certificate",
           "$ref" : "#/definitions/CustomCertInfo"
         },
+        "universeDetails" : {
+          "description" : "Associated universe details of the Certificate",
+          "readOnly" : true,
+          "$ref" : "#/definitions/ArrayNode"
+        },
         "inUse" : {
           "type" : "boolean",
           "description" : "Indicates whether the Certificate is in use or not",
@@ -6856,11 +6838,6 @@
         },
         "customServerCertInfo" : {
           "$ref" : "#/definitions/CustomServerCertInfo"
-        },
-        "universeDetails" : {
-          "description" : "Associated universe details of the Certificate",
-          "readOnly" : true,
-          "$ref" : "#/definitions/ArrayNode"
         }
       },
       "description" : "Certificate used by the universe to send sensitive information"
@@ -7150,10 +7127,10 @@
         "details" : {
           "$ref" : "#/definitions/RegionDetails"
         },
-        "securityGroupId" : {
+        "vnetName" : {
           "type" : "string"
         },
-        "vnetName" : {
+        "securityGroupId" : {
           "type" : "string"
         },
         "config" : {
@@ -7418,6 +7395,15 @@
           "items" : {
             "$ref" : "#/definitions/MasterNode"
           }
+        }
+      }
+    },
+    "FeatureUpdateFormData" : {
+      "type" : "object",
+      "required" : [ "features" ],
+      "properties" : {
+        "features" : {
+          "$ref" : "#/definitions/JsonNode"
         }
       }
     },
@@ -7698,15 +7684,6 @@
       },
       "description" : "Metrics details"
     },
-    "FeatureUpdateFormData" : {
-      "type" : "object",
-      "required" : [ "features" ],
-      "properties" : {
-        "features" : {
-          "$ref" : "#/definitions/JsonNode"
-        }
-      }
-    },
     "InstanceType" : {
       "type" : "object",
       "required" : [ "idKey", "instanceTypeCode", "instanceTypeDetails", "provider", "providerCode", "providerUuid" ],
@@ -7735,14 +7712,14 @@
         "instanceTypeDetails" : {
           "$ref" : "#/definitions/InstanceTypeDetails"
         },
+        "instanceTypeCode" : {
+          "type" : "string"
+        },
         "providerUuid" : {
           "type" : "string",
           "format" : "uuid"
         },
         "providerCode" : {
-          "type" : "string"
-        },
-        "instanceTypeCode" : {
           "type" : "string"
         }
       },
@@ -8041,59 +8018,87 @@
     },
     "Alert" : {
       "type" : "object",
-      "required" : [ "acknowledgedTime", "createTime", "customerUUID", "definitionUuid", "errCode", "groupType", "groupUuid", "labels", "message", "resolvedTime", "sendEmail", "severity", "state", "targetState", "uuid" ],
+      "required" : [ "labels" ],
       "properties" : {
         "uuid" : {
           "type" : "string",
-          "format" : "uuid"
+          "format" : "uuid",
+          "description" : "Alert uuid",
+          "readOnly" : true
         },
         "customerUUID" : {
           "type" : "string",
-          "format" : "uuid"
+          "format" : "uuid",
+          "description" : "Cutomer uuid",
+          "readOnly" : true
         },
         "createTime" : {
           "type" : "string",
-          "format" : "date-time"
+          "format" : "date-time",
+          "description" : "Create Date time info.",
+          "readOnly" : true
         },
         "acknowledgedTime" : {
           "type" : "string",
-          "format" : "date-time"
+          "format" : "date-time",
+          "description" : "Acknowledge Date time info.",
+          "readOnly" : true
         },
         "resolvedTime" : {
           "type" : "string",
-          "format" : "date-time"
+          "format" : "date-time",
+          "description" : "Resolved Date time info.",
+          "readOnly" : true
         },
         "errCode" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "Error Code.",
+          "readOnly" : true
         },
         "severity" : {
           "type" : "string",
+          "description" : "Alert definition group serverity.",
+          "readOnly" : true,
           "enum" : [ "SEVERE", "WARNING" ]
         },
         "message" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "Alert Message.",
+          "readOnly" : true
         },
         "state" : {
           "type" : "string",
+          "description" : "Alert State.",
+          "readOnly" : true,
           "enum" : [ "CREATED", "ACTIVE", "ACKNOWLEDGED", "RESOLVED" ]
         },
         "targetState" : {
           "type" : "string",
+          "description" : "Target State.",
+          "readOnly" : true,
           "enum" : [ "CREATED", "ACTIVE", "ACKNOWLEDGED", "RESOLVED" ]
         },
         "sendEmail" : {
-          "type" : "boolean"
+          "type" : "boolean",
+          "description" : "Whether to send an Email or not.",
+          "readOnly" : true
         },
         "definitionUuid" : {
           "type" : "string",
-          "format" : "uuid"
+          "format" : "uuid",
+          "description" : "Alert Definition Uuid",
+          "readOnly" : true
         },
         "groupUuid" : {
           "type" : "string",
-          "format" : "uuid"
+          "format" : "uuid",
+          "description" : "Alert group Uuid",
+          "readOnly" : true
         },
         "groupType" : {
           "type" : "string",
+          "description" : "Alert definition group type",
+          "readOnly" : true,
           "enum" : [ "CUSTOMER", "UNIVERSE" ]
         },
         "labels" : {
@@ -8102,7 +8107,8 @@
             "$ref" : "#/definitions/AlertLabel"
           }
         }
-      }
+      },
+      "description" : "Alert information. which is used to send alert notification."
     },
     "AlertLabel" : {
       "type" : "object",
